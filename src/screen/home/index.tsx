@@ -10,7 +10,7 @@ import Helper from '../../utils/Helper';
 import HttpService from '../../utils/httpService';
 import Timeout from '../../utils/timeout';
 import { NavigationProp } from '@react-navigation/native';
-import DataList from '../../list/racipes.list';
+import DataList from '../../list/recipes.list';
 import TextInputView from '../../components/textInput';
 
 // get device height and width
