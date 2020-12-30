@@ -6,15 +6,7 @@ export interface IHeaderProps {
 export interface IBackHeaderProps {
   goback?: any;
   text?: String;
-  Search?: any;
-  OpenCart?: any;
-}
-
-export interface IButtonProps {
-  onClick?: any;
-  text?: string;
-  containerStyle?: any;
-  visible?: boolean;
+ 
 }
 
 export interface IAppRoot {

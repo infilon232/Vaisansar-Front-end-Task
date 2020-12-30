@@ -1,13 +1,11 @@
 import React from 'react';
 import { NavigationProp } from '@react-navigation/native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import PrefManager from '../utils/prefManager';
 import Helper from '../utils/Helper';
-import {Colors} from '../enums/index';
 import {ImageView} from '../constants/appConstants';
-import {Fonts} from '../constants/appConstants';
 import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
-export function launchScreen({
+// splash sreen with 2 second timeout
+export function LaunchScreen({
   navigation,
 }: {
   navigation: NavigationProp<any>;

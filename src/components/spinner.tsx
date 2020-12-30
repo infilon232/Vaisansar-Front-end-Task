@@ -18,6 +18,8 @@ const pageStyle = StyleSheet.create({
     textAlign:'center'
   }
 });
+
+// spinner 
 export default function Button(props: PropsWithChildren<ISpinner>) {
   const { loading,text} = props;
   return (
@@ -33,4 +35,3 @@ export default function Button(props: PropsWithChildren<ISpinner>) {
     </Modal>
   );
 };
-// Your request is in progress, please wait

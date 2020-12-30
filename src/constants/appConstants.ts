@@ -1,5 +1,8 @@
+// API Integration
 export const API_BASE_URL = 'https://api.spoonacular.com/recipes/';
 export const apiKey = '527556603cd245deb9089f96ea607872';
+
+// Define Font family
 export enum Fonts {
     Bold = "OpenSans-Bold",
     BoldItalic ='OpenSans-BoldItalic',
@@ -13,6 +16,7 @@ export enum Fonts {
     SemiBoldItalic='OpenSans-SemiBoldItalic'
 }
 
+// Define Font size 
 export enum Dimens {
     ExtraSmall=12,
     Small=14,
@@ -21,11 +25,16 @@ export enum Dimens {
     SizeLarge=20,
     SizeExtraLarge=25,
 }
-
+ 
+// Splash logo
 export enum ImageView{ 
     logo = require('../assets/react.png'),
 }
 
+// Define parameters 
 export enum Strings{
     loading= 'Loading...', 
+    protein='Protein:',
+    fat='Fat:',
+    calories='Calories:'
 }

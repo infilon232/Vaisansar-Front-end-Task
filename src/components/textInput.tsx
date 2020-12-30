@@ -4,6 +4,7 @@ import {
     TextInput,TextInputProps
 } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Fonts } from '../constants/appConstants';
 import {Colors} from '../enums';
 
 
@@ -42,7 +43,7 @@ const TextInputView: React.FC<Props> = (props) => {
         <View>
             <TextInput
                 style={{
-                    color:Colors.dark_gray,
+                    color:Colors.black,
                     borderWidth:1,
                     borderColor: Colors.medium_gray,
                     width: wp('86%'),
@@ -50,7 +51,7 @@ const TextInputView: React.FC<Props> = (props) => {
                     height: 40,
                     borderRadius:6,
                     alignSelf:'center',
-                   
+                    fontFamily:Fonts.SemiBold,
                     marginTop:props.top?props.top:0
                 }}
                 onChangeText={props.onChangeText}

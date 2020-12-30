@@ -32,6 +32,7 @@ const pageStyle = StyleSheet.create({
     borderRadius: 18
   },
 });
+// home page header
 export default function Header(props: PropsWithChildren<IHeaderProps>) {
   const { back, text, } = props;
   return (

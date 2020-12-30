@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Dimensions, View, ActivityIndicator, FlatList,TouchableOpacity,Text } from 'react-native'
+import { Dimensions, View, ActivityIndicator, FlatList, Text } from 'react-native'
 import { Colors } from '../../enums';
 import AppRoot from '../../components/appRoot';
 import Header from '../../components/header';
@@ -12,12 +12,21 @@ import Timeout from '../../utils/timeout';
 import { NavigationProp } from '@react-navigation/native';
 import DataList from '../../list/racipes.list';
 import TextInputView from '../../components/textInput';
+
+// get device height and width
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+
+// get height and width in percentage
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-const styles = StyleSheet.create({
-})
+
+// define fonts
+import { Fonts } from '../../constants/appConstants';
+
+// store values for lazy load
 var Data = [] as any;
+
+// function for home screen
 export function Home({
   navigation
 }: {
@@ -25,8 +34,8 @@ export function Home({
 }) {
   const [spinner, setSpinner] = useState(true);
   const [isloading, setLoading] = useState(false);
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
-  const [masterDataSource, setMasterDataSource] = useState([]);
+  const [filteredDataSource, setFilteredDataSource] = useState([] as any);
+  const [masterDataSource, setMasterDataSource] = useState([] as any);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(10);
   const getData = async () => {
@@ -39,12 +48,11 @@ export function Home({
         setLoading(Data.length >= page ? true : false);
       }
       Data.push(page);
-      console.log(HttpService.random);
       NetInfo.fetch().then(state => {
         if (state.isConnected) {
           Timeout(
             15000,
-            fetch(HttpService.random + 'number=' + page, {
+            fetch(HttpService.random + '&number=' + 10, {
               method: "GET",
               headers: {
                 Accept: "application/json",
@@ -54,19 +62,18 @@ export function Home({
               .then(res => res.json())
               .then(res => {
                 console.log(res);
-                if (res.code == 200) {
+                if (res.recipes) {
                   setSpinner(false);
+                  setFilteredDataSource([...filteredDataSource, ...res.recipes]);
+                  setMasterDataSource([...masterDataSource, ...res.recipes]);
                   setPage(page + 10)
-                  setFilteredDataSource(res.recipes);
-                  setMasterDataSource(res.recipes);
                 }
-                else if (res.status = 'failure') {
+                if (res.status = 'failure' && res.message) {
                   Toast.show(res.message, Toast.SHORT);
                   setSpinner(false);
                 }
                 else {
                   setSpinner(false);
-                  Toast.show(res.message, Toast.SHORT);
                 }
               })
               .catch(e => {
@@ -90,10 +97,10 @@ export function Home({
     }
   }
   useEffect(() => {
-    setTimeout(() => {
-      getData()
-    }, 2000);
+    getData()
   }, []);
+
+  // footer loader
   const renderFooter = () => {
     return (
       <View style={{ padding: 30, bottom: 10 }}>
@@ -107,6 +114,8 @@ export function Home({
       </View>
     );
   };
+
+  //  search fuction
   const searchFilterFunction = (text) => {
     if (text) {
       const newData = masterDataSource.filter(
@@ -124,6 +133,17 @@ export function Home({
       setSearch(text);
     }
   };
+  const EmptyListMessage = ({ item }) => {
+    return (
+      <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        {filteredDataSource.length < 1 && spinner == false ?
+          <Text style={{ fontFamily: Fonts.Bold }}>No racipes available</Text>
+          : null}
+      </View>
+    );
+  };
+
+  // home page design
   return (
     <AppRoot>
       <View style={{ flex: 1, backgroundColor: Colors.viewBox }}>
@@ -138,11 +158,15 @@ export function Home({
           />
         </View>
         <Spinner loading={spinner} />
-        <FlatList
+        
+        {/*  recipe list */}
+        <FlatList  
           style={{ flex: 1, backgroundColor: Colors.viewBox }}
           data={filteredDataSource}
+          ListEmptyComponent={EmptyListMessage}
           ListFooterComponent={renderFooter}
           onEndReached={() => getData()}
+          disableVirtualization={true}
           onEndReachedThreshold={0.01}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => (

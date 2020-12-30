@@ -7,6 +7,8 @@ import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-nat
 import { ImageView } from '../constants/appConstants';
 import { Colors } from "../enums";
 import { IAppRoot } from "./types/components";
+
+// background color for status bar
 const styles = StyleSheet.create({
   container: {
     flex: 1, backgroundColor: Colors.acent
@@ -16,6 +18,8 @@ const styles = StyleSheet.create({
     paddingVertical: 15,width:'100%',paddingHorizontal:20,backgroundColor:Colors.viewBox
   }
 });
+
+// safearea for status bar
 export default function AppRoot(props: PropsWithChildren<IAppRoot>) {
 const {onClick2,children} = props;
     return (

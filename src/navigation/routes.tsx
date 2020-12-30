@@ -1,5 +1,5 @@
 export enum AppRoute {
-  LANDING = 'launchScreen',
+  LANDING = 'LaunchScreen',
   HOME = 'Home',
   DETAILS = 'Details',
 } 

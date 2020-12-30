@@ -1,3 +1,4 @@
+// function for api timeout
 export default function Timeout(ms, promise) {
     return new Promise(function(resolve, reject) {
       setTimeout(function() {
